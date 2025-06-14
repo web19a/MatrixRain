@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Magic!</title>
+    <title>MatrixRain!</title>
     <style>
         body {
             background: #000;
@@ -16,36 +16,36 @@
 <body>
     <canvas id="c"></canvas>
     <script>
-        const c = document.getElementById("c"),
-        x = c.getContext("2d");
+        const canvas = document.getElementById("c"),
+        content = c.getContext("2d");
 
-        c.width = window.innerWidth;
-        c.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-        const cols = Math.floor(c.width / 20) + 1,
-        ypos = Array(cols).fill(0);
+        const cols = Math.floor(canvas.width / 20) + 1,
+        chars = Array(cols).fill(0);
 
         function matrix() {
             // Semi-transparent black overlay (creates trail effect)
-            x.fillStyle = "#0001";
-            x.fillRect(0, 0, c.width, c.height);
+            content.fillStyle = "#0001";
+            content.fillRect(0, 0, c.width, c.height);
 
             // Green characters
-            x.fillStyle = "#0f0";
-            x.font = "15pt monospace";
+            content.fillStyle = "#0f0";
+            content.font = "15pt monospace";
 
-            ypos.forEach((y, i) => {
+            chars.forEach((y, i) => {
                 // Generate random ASCII character
                 const text = String.fromCharCode(Math.random() * 128);
 
                 // Draw character at column position
-                x.fillText(text, i * 20, y);
+                content.fillText(text, i * 20, y);
 
                 // Reset position if past bottom + random offset
                 if (y > 100 + Math.random() * 10000)
-                    ypos[i] = 0;
+                    chars[i] = 0;
                 else
-                    ypos[i] = y + 20;
+                    chars[i] = y + 20;
             });
         }
 
