@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Magic!</title>
+    <style>
+        body {
+            background: #000;
+            margin: 0;
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="c"></canvas>
+    <script>
+        const c = document.getElementById("c"),
+        x = c.getContext("2d");
+
+        c.width = window.innerWidth;
+        c.height = window.innerHeight;
+
+        const cols = Math.floor(c.width / 20) + 1,
+        ypos = Array(cols).fill(0);
+
+        function matrix() {
+            // Semi-transparent black overlay (creates trail effect)
+            x.fillStyle = "#0001";
+            x.fillRect(0, 0, c.width, c.height);
+
+            // Green characters
+            x.fillStyle = "#0f0";
+            x.font = "15pt monospace";
+
+            ypos.forEach((y, i) => {
+                // Generate random ASCII character
+                const text = String.fromCharCode(Math.random() * 128);
+
+                // Draw character at column position
+                x.fillText(text, i * 20, y);
+
+                // Reset position if past bottom + random offset
+                if (y > 100 + Math.random() * 10000)
+                    ypos[i] = 0;
+                else
+                    ypos[i] = y + 20;
+            });
+        }
+
+        // Update animation every 50ms
+        setInterval(matrix, 50);
+    </script>
+</body>
+</html>
